@@ -1,6 +1,14 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function HeroSection() {
+  const router = useRouter();
+
+  function handleAddNewBook() {
+    router.push("/books/new");
+  }
   return (
     <section className="wrapper pt-28 mb-10  md:mb-16">
       <div className="library-hero-card">
@@ -14,7 +22,7 @@ export default function HeroSection() {
               Convert your books into interactive AI conversations. Listen,
               learn, and discuss your favorite reads.
             </p>
-            <button className="library-cta-primary" type="button">
+            <button className="library-cta-primary" type="button" onClick={handleAddNewBook}>
               <span className="text-lg leading-none">+</span>
               Add new book
             </button>

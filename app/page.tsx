@@ -12,7 +12,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="wrapper constainer">
+    <main className="wrapper container">
       <HeroSection />
 
       <div className="library-books-grid">

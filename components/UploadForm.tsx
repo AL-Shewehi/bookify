@@ -65,7 +65,6 @@ function DropzoneField({
 
   return (
     <div
-      id={id}
       role="button"
       tabIndex={0}
       aria-label={label}
@@ -91,6 +90,7 @@ function DropzoneField({
       ].join(" ")}
     >
       <input
+        id={id}
         ref={inputRef}
         type="file"
         accept={accept}
@@ -108,12 +108,14 @@ function DropzoneField({
           <button
             type="button"
             aria-label="Remove file"
+            disabled={disabled}
+            aria-disabled={disabled}
             onClick={(e) => {
               e.stopPropagation();
               onChange(undefined);
               if (inputRef.current) inputRef.current.value = "";
             }}
-            className="upload-dropzone-remove mt-1"
+            className="upload-dropzone-remove mt-1 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <X className="w-4 h-4" />
             <span className="text-xs ml-1">Remove</span>
