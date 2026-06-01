@@ -14,8 +14,8 @@ export const getAllBooks = async () => {
 
         return { success: true, data: serializeData(books) }
     } catch (error) {
-        console.log(`Failed to get all books: ${error}`);
-        return { success: false, error: error }
+        console.error('Failed to get all books:', error);
+        return { success: false, error: error instanceof Error ? error.message : 'Internal server error' }
     }
 }
 
@@ -39,11 +39,10 @@ export const checkBookExists = async (title: string) => {
         }
 
     } catch (error) {
-
-        console.error(`Failed to check book existance: ${error}`);
+        console.error('Failed to check book existence:', error);
         return {
             exists: false,
-            error: error
+            error: error instanceof Error ? error.message : 'Internal server error'
         }
     }
 }
@@ -76,10 +75,10 @@ export const createBook = async (data: CreateBook) => {
 
 
     } catch (error) {
-        console.log(`Failed to Create Book: ${error}`);
+        console.error('Failed to create book:', error);
         return {
             success: false,
-            error: error,
+            error: error instanceof Error ? error.message : 'Internal server error',
         }
     }
 }
@@ -102,10 +101,10 @@ export const saveBookSegments = async (bookId: string, clerkId: string, segments
         return { success: true, data: { segmantsCreated: segments.length } }
 
     } catch (error) {
-        console.log(`Failed to save book segments: ${error}`);
-        await Book.deleteMany({ bookId })
+        console.error('Failed to save book segments:', error);
+        await BookSegment.deleteMany({ bookId })
         await Book.findByIdAndDelete(bookId)
         console.log(`Cleaned up book: ${bookId}`);
-        return { success: false, error: error }
+        return { success: false, error: error instanceof Error ? error.message : 'Internal server error' }
     }
 }

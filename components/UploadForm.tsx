@@ -238,7 +238,8 @@ export default function UploadForm() {
 
       if (data.coverImage) {
         const coverImage = data.coverImage
-        const uploadCoverBlob = await upload(`${fileTitle}-cover.png`, coverImage, {
+        const ext = coverImage.type.split('/')[1] ?? 'png'
+        const uploadCoverBlob = await upload(`${fileTitle}-cover.${ext}`, coverImage, {
           access: 'public',
           handleUploadUrl: '/api/upload',
           contentType: coverImage.type
@@ -281,9 +282,9 @@ export default function UploadForm() {
 
       if (!segments.success) {
         console.error("saveBookSegments failed:", segments.error)
-        toast.error("failed to save book segments. Please try again later.")
-        throw new Error("Failed to save book segments. Please try again later.")
-      } 
+        toast.error("Failed to save book segments. Please try again later.")
+        return
+      }
 
       form.reset();
       router.push('/')

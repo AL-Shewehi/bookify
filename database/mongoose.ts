@@ -13,7 +13,7 @@ declare global {
     };
 }
 
-let cached = global.mongooseCache || (global.mongooseCache = {
+const cached = global.mongooseCache || (global.mongooseCache = {
     connection: null,
     promise: null
 });
