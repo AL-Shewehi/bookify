@@ -32,6 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn(
         "h-full relative font-sans",
         "antialiased",
@@ -41,7 +42,7 @@ export default function RootLayout({
         inter.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <RootLayoutClient>{children}</RootLayoutClient>
       </body>
     </html>
